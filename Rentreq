@@ -1,0 +1,20 @@
+ 
+<?php
+$con=mysqli_connect("localhost","root","","renting_db");
+session_start();
+$memid=$_SESSION['memID'];
+$pid=$_GET['pid'];
+$qry="insert into rent_tbl  (memberid, PropertyID, RequestDate) values($memid,$pid,'".date("Y/m/d")."' )";
+//echo $qry;
+$res=mysqli_query($con,$qry);
+if (mysqli_affected_rows($con)>0)
+{
+            echo "<script>alert('Request sent to the property owner');</script>";
+            header('refresh:0;url=dashboard.php');
+}
+      else
+      {            
+            echo"<script>alert('Property not available on rent');</script>";
+            header('refresh:0;url=dashboard.php');
+      }
+?>
